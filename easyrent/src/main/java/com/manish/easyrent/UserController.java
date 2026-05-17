@@ -1,6 +1,7 @@
 package com.manish.easyrent;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,14 +17,14 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Object loginUser(@RequestBody User user) {
+    public ResponseEntity<?> loginUser(@RequestBody User user) {
         return userRepository.findByEmail(user.getEmail())
                 .map(existingUser -> {
                     if (existingUser.getPassword().equals(user.getPassword())) {
-                        return existingUser; // Pura User object return karo
+                        return ResponseEntity.ok(existingUser);
                     } else {
-                        return "Invalid Password!";
+                        return ResponseEntity.badRequest().body("Invalid Password!");
                     }
-                }).orElse("User Not Found!");
+                }).orElse(ResponseEntity.badRequest().body("User Not Found!"));
     }
 }

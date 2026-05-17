@@ -5,11 +5,13 @@ import lombok.Data;
 
 @Entity
 @Table(name = "bookings")
-@Data // Agar Lombok nahi hai toh Getters/Setters manually bana lena
+@Data
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Long userId;
 
     private String vehicleName;
     private String vehicleType;

@@ -10,19 +10,17 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    // Registration API
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) {
         return userRepository.save(user);
     }
 
-    // Login API
     @PostMapping("/login")
-    public String loginUser(@RequestBody User user) {
+    public Object loginUser(@RequestBody User user) {
         return userRepository.findByEmail(user.getEmail())
                 .map(existingUser -> {
                     if (existingUser.getPassword().equals(user.getPassword())) {
-                        return "Login Successful!";
+                        return existingUser; // Pura User object return karo
                     } else {
                         return "Invalid Password!";
                     }

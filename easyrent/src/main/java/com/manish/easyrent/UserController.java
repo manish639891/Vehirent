@@ -1,5 +1,7 @@
 package com.manish.easyrent;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,4 +29,10 @@ public class UserController {
                     }
                 }).orElse(ResponseEntity.badRequest().body("User Not Found!"));
     }
+
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
 }

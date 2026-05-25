@@ -21,6 +21,12 @@ public class VehicleController {
         return vehicleRepository.save(vehicle);
     }
 
+    // Nayi API: Ek sath bahut saari gaadiyan (Bulk Insert) add karne ke liye
+    @PostMapping("/add-multiple")
+    public List<Vehicle> addMultipleVehicles(@RequestBody List<Vehicle> vehicles) {
+        return vehicleRepository.saveAll(vehicles);
+    }
+
     @DeleteMapping("/delete/{id}")
     public String deleteVehicle(@PathVariable Long id) {
         vehicleRepository.deleteById(id);
